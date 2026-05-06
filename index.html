@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartDigital Hub | Jual Beli Produk & Jasa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-[#f8fafc] text-gray-900">
+
+    <!-- LOGIN OVERLAY -->
+    <div id="loginPage" class="fixed inset-0 z-[100] bg-blue-900 flex items-center justify-center p-6">
+        <div class="bg-white p-10 rounded-3xl shadow-2xl w-full max-w-md text-center border-t-8 border-blue-500">
+            <h1 class="text-4xl font-black text-blue-900 mb-2">SmartDigital</h1>
+            <p class="text-gray-400 mb-8 font-medium">Ecosystem Produk & Layanan Digital</p>
+            <form id="loginForm" class="space-y-5">
+                <div class="text-left">
+                    <label class="text-xs font-bold text-gray-500 uppercase ml-1">Username</label>
+                    <input type="text" id="username" class="input-style" placeholder="Masukkan nama" required>
+                </div>
+                <div class="text-left">
+                    <label class="text-xs font-bold text-gray-500 uppercase ml-1">Password</label>
+                    <input type="password" id="password" class="input-style" placeholder="********" required>
+                </div>
+                <button type="submit" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold hover:bg-blue-700 transition-all shadow-lg hover:shadow-blue-200">
+                    Masuk ke Platform
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MAIN APP -->
+    <div id="mainContent" class="hidden">
+        <!-- Navigation -->
+        <nav class="sticky top-0 bg-white/80 backdrop-blur-md border-b z-40 px-6 py-4">
+            <div class="container mx-auto flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold">SD</div>
+                    <span class="text-xl font-black tracking-tighter text-blue-900 uppercase">SmartDigital</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8 font-semibold text-gray-600">
+                    <a href="#produk" class="hover:text-blue-600">Katalog Produk</a>
+                    <a href="#layanan" class="hover:text-blue-600">Jasa Development</a>
+                    <a href="#admin" class="text-orange-600 hover:text-orange-700 underline decoration-2 underline-offset-4">Panel Penjual</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button id="cartBtn" class="relative p-2 text-gray-600 hover:bg-gray-100 rounded-full transition">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span id="cartCount" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center">0</span>
+                    </button>
+                    <button id="logoutBtn" class="text-sm font-bold text-red-500 hover:text-red-700">Logout</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Header -->
+        <header class="py-16 text-center bg-white border-b">
+            <h2 class="text-4xl font-extrabold text-gray-900 mb-4">Marketplace Digital Terpadu</h2>
+            <p class="text-gray-500 max-w-xl mx-auto">Selamat datang, <span id="userDisplay" class="text-blue-600 font-bold"></span>! Temukan materi sekolah, foto estetik, hingga jasa development profesional.</p>
+        </header>
+
+        <!-- Produk Section -->
+        <section id="produk" class="container mx-auto px-6 py-16">
+            <div class="flex justify-between items-end mb-10">
+                <div>
+                    <h3 class="text-2xl font-bold text-blue-900">Digital Goods</h3>
+                    <p class="text-gray-500">Materi siap pakai dan aset visual</p>
+                </div>
+                <div class="flex space-x-2">
+                    <span class="badge active">Semua</span>
+                    <span class="badge">Edukasi</span>
+                    <span class="badge">Design</span>
+                </div>
+            </div>
+            
+            <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Produk Statis (Default) -->
+                <div class="prod-card">
+                    <div class="prod-img"><i class="fas fa-file-powerpoint text-5xl text-orange-400"></i></div>
+                    <div class="p-5">
+                        <span class="cat">Materi Anak Sekolah</span>
+                        <h4 class="font-bold text-lg">PPT Interaktif Biologi</h4>
+                        <p class="text-green-600 font-black mt-2">Rp 35.000</p>
+                        <button onclick="addToCart('PPT Biologi', 35000)" class="add-to-cart-btn">Tambah ke Keranjang</button>
+                    </div>
+                </div>
+
+                <div class="prod-card">
+                    <div class="prod-img"><i class="fas fa-camera-retro text-5xl text-blue-400"></i></div>
+                    <div class="p-5">
+                        <span class="cat">Foto Estetik</span>
+                        <h4 class="font-bold text-lg">Bundle Foto Senja (100+)</h4>
+                        <p class="text-green-600 font-black mt-2">Rp 75.000</p>
+                        <button onclick="addToCart('Bundle Foto Senja', 75000)" class="add-to-cart-btn">Tambah ke Keranjang</button>
+                    </div>
+                </div>
+
+                <div class="prod-card">
+                    <div class="prod-img"><i class="fas fa-chart-line text-5xl text-purple-400"></i></div>
+                    <div class="p-5">
+                        <span class="cat">Infografis</span>
+                        <h4 class="font-bold text-lg">Template Infografis CV</h4>
+                        <p class="text-green-600 font-black mt-2">Rp 20.000</p>
+                        <button onclick="addToCart('Template CV', 20000)" class="add-to-cart-btn">Tambah ke Keranjang</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Layanan Dev Section -->
+        <section id="layanan" class="bg-blue-900 py-20 text-white">
+            <div class="container mx-auto px-6">
+                <h3 class="text-3xl font-bold mb-12 text-center italic">Professional Development Service</h3>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="service-box">
+                        <i class="fas fa-laptop-code text-4xl mb-4 text-blue-400"></i>
+                        <h4 class="text-xl font-bold mb-2">Web Development</h4>
+                        <p class="text-sm opacity-70 mb-4">Landing page, Dashboard, dan Toko Online kustom sesuai kebutuhan bisnis.</p>
+                        <p class="font-black text-blue-300">Estimasi: Rp 1.5M - 10M</p>
+                    </div>
+                    <div class="service-box">
+                        <i class="fas fa-mobile-alt text-4xl mb-4 text-green-400"></i>
+                        <h4 class="text-xl font-bold mb-2">App Development</h4>
+                        <p class="text-sm opacity-70 mb-4">Aplikasi Android/iOS menggunakan teknologi terbaru (React Native/Flutter).</p>
+                        <p class="font-black text-green-300">Estimasi: Rp 5M - 25M</p>
+                    </div>
+                    <div class="service-box">
+                        <i class="fas fa-robot text-4xl mb-4 text-purple-400"></i>
+                        <h4 class="text-xl font-bold mb-2">AI Integration</h4>
+                        <p class="text-sm opacity-70 mb-4">Integrasi Chatbot atau sistem otomatisasi berbasis AI untuk efisiensi.</p>
+                        <p class="font-black text-purple-300">Hubungi Konsultasi</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Admin / Penjual Section -->
+        <section id="admin" class="container mx-auto px-6 py-20">
+            <div class="bg-white rounded-3xl shadow-xl overflow-hidden border flex flex-col md:flex-row">
+                <div class="md:w-1/3 bg-orange-500 p-10 text-white">
+                    <h3 class="text-2xl font-bold mb-4">Ingin Menjual Produk?</h3>
+                    <p class="opacity-80 text-sm">Unggah file digital Anda (PPT, Foto, Materi) dan tentukan harganya. Produk Anda akan langsung tampil di pasar.</p>
+                    <i class="fas fa-store text-[100px] mt-10 opacity-20"></i>
+                </div>
+                <div class="md:w-2/3 p-10">
+                    <form id="uploadForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="text-xs font-bold uppercase text-gray-400">Nama Produk</label>
+                            <input type="text" id="prodName" class="input-style" placeholder="Contoh: PPT IPA Kelas 5" required>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-xs font-bold uppercase text-gray-400">Kategori</label>
+                            <select id="prodCategory" class="input-style">
+                                <option>PPT Sekolah</option>
+                                <option>Materi Anak</option>
+                                <option>Infografis</option>
+                                <option>Foto Estetik</option>
+                            </select>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-xs font-bold uppercase text-gray-400">Harga (Rupiah)</label>
+                            <input type="number" id="prodPrice" class="input-style" placeholder="25000" required>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-xs font-bold uppercase text-gray-400">Upload Foto Produk</label>
+                            <input type="file" id="prodImage" class="input-style" accept="image/*" required>
+                        </div>
+                        <button type="submit" class="md:col-span-2 bg-gray-900 text-white py-4 rounded-xl font-bold hover:bg-black transition">
+                            Publikasikan Produk
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-white py-12 border-t text-center">
+            <p class="text-gray-400 text-sm font-medium">&copy; 2026 SmartDigital Indonesia. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+    <!-- MODAL KERANJANG & PEMBAYARAN -->
+    <div id="cartModal" class="hidden fixed inset-0 z-[60] bg-black/60 flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl">
+            <div class="p-6 border-b flex justify-between items-center">
+                <h3 class="text-xl font-black italic">Checkout Produk</h3>
+                <button onclick="toggleModal('cartModal')" class="text-gray-400 hover:text-black text-2xl">&times;</button>
+            </div>
+            <div id="cartItems" class="p-6 max-h-60 overflow-y-auto space-y-4">
+                <!-- List Belanja -->
+            </div>
+            <div class="p-6 bg-gray-50 space-y-6">
+                <div class="flex justify-between font-bold text-xl">
+                    <span>Total Pembayaran:</span>
+                    <span id="totalPrice" class="text-blue-600">Rp 0</span>
+                </div>
+                
+                <div class="space-y-3">
+                    <p class="text-xs font-bold uppercase text-gray-400">Pilih Metode Pembayaran:</p>
+                    <div class="grid grid-cols-2 gap-3">
+                        <button onclick="processPay('QRIS')" class="pay-btn"><i class="fas fa-qrcode mr-2"></i> QRIS</button>
+                        <button onclick="processPay('Transfer')" class="pay-btn"><i class="fas fa-university mr-2"></i> Transfer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
